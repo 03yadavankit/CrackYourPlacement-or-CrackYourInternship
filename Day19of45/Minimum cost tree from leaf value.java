@@ -1,0 +1,38 @@
+package Day19of45;
+
+class Solution {
+    public int mctFromLeafValues(int[] arr) {
+        return helper(arr, 0, arr.length-1 , new Integer[arr.length][arr.length]);
+    }
+    public int helper(int[] arr, int start, int end, Integer[][] dp) {
+        if (start == end)
+            return 0;
+        
+        if (dp[start][end] != null)
+            return dp[start][end];
+
+        int minCost = Integer.MAX_VALUE;
+        
+        for (int i = start; i < end; i++) {
+            int maxLeft = maxVal(arr, start, i);
+            int maxRight = maxVal(arr, i + 1, end);
+            
+            int left = helper(arr, start, i, dp);
+            int right = helper(arr, i + 1, end, dp);
+            
+            int res = (maxLeft * maxRight) + left + right;
+            minCost = Math.min(minCost, res);
+        }
+        
+        dp[start][end] = minCost;
+        return minCost;
+    }
+    
+    private int maxVal(int[] arr, int start, int end) {
+        int max = arr[start];
+        for (int i = start + 1; i <= end; i++) {
+            max = Math.max(max, arr[i]);
+        }
+        return max;
+    }
+}
