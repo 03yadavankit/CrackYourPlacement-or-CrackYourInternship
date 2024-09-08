@@ -6,7 +6,7 @@ class Solution {
         Arrays.sort(nums);
         findAns(0,nums,new ArrayList<>());
         return ans;
-    }
+     }
 
     public void findAns(int n,int[] nums,List<Integer> al){
         ans.add(new ArrayList<>(al));
